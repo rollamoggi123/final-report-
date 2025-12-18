@@ -1,1 +1,474 @@
-# final-report-
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>族語(三) 報告與測驗時程表 (雲端同步修正版)</title>
+    <style>
+        :root {
+            --primary-color: #00695c;
+            --secondary-color: #e0f2f1;
+            --accent-color: #d81b60;
+            --notice-bg: #fff3e0;
+            --notice-border: #ffe0b2;
+            --text-color: #333;
+            --border-radius: 8px;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+        }
+
+        h1 { color: var(--primary-color); margin: 0; font-size: 1.8rem; }
+        .en-inline { display: block; font-size: 0.85rem; font-weight: normal; color: #666; margin-top: 2px; }
+
+        .status-container {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .status-bar {
+            background: #f0f0f0;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .status-online { color: #2e7d32; background: #e8f5e9; border-color: #c8e6c9; }
+        .status-syncing { color: #0277bd; background: #e1f5fe; border-color: #b3e5fc; }
+        .status-error { color: #d32f2f; background: #ffebee; border-color: #ffcdd2; }
+
+        .notice-box {
+            background-color: var(--notice-bg);
+            border: 2px solid var(--notice-border);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 25px;
+            color: #e65100;
+        }
+
+        details {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px 20px;
+            cursor: pointer;
+            background: #fafafa;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details[open] summary { background: var(--primary-color); color: white; }
+
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 900px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; vertical-align: middle; }
+        th { background-color: #f9f9f9; color: #555; font-size: 0.9rem; }
+        
+        .editable-cell:focus {
+            outline: 2px solid var(--accent-color);
+            background: #fffde7;
+            padding: 2px 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .badge.mid { background-color: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
+        
+        .btn-view {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .btn-view:hover { background-color: var(--primary-color); color: white; }
+
+        .btn-go {
+            background-color: #e0f2f1;
+            color: #00695c;
+            border: 1px solid #00695c;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-go:hover { background-color: #00695c; color: white; }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0,0,0,0.6); 
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 1% auto;
+            border-radius: 12px;
+            width: 95%; 
+            max-width: 900px;
+            max-height: 95vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            background-color: var(--secondary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .close-btn { font-size: 28px; cursor: pointer; }
+        .modal-body { padding: 20px; overflow-y: auto; }
+        
+        .edit-area {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .edit-area .full-width { grid-column: span 2; }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .input-group { margin-bottom: 10px; }
+        .input-group label { display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 3px; color: var(--primary-color); }
+        .input-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+
+        .save-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            grid-column: span 2;
+            font-size: 1rem;
+        }
+
+        .loading-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.8);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+        }
+
+        .special-row { background-color: #fff8e1; font-weight: bold; text-align: center; }
+        .time-col { font-family: 'Courier New', monospace; font-weight: bold; color: var(--primary-color); }
+    </style>
+</head>
+<body>
+
+    <div id="loading" class="loading-overlay">
+        <div><h2 style="color: var(--primary-color);">⌛ 處理中...</h2></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>族語報告與測驗時程表</h1>
+            <span class="en-inline" style="font-size: 1.2rem;">Indigenous Language Presentation & Oral Test Schedule</span>
+            <div class="status-container">
+                <div id="sync-status" class="status-bar">🔌 正在建立連線...</div>
+            </div>
+        </header>
+
+        <div class="notice-box">
+            <h3>💡 連線提示 / Connection Tips</h3>
+            <p>1. 如果狀態顯示紅色的「連線錯誤」，請嘗試重新整理網頁。</p>
+            <p>2. 此版本修正了資料庫路徑結構，解決了舊版的連線問題。</p>
+        </div>
+
+        <details open>
+            <summary>
+                <div>📅 12月 19日 - 期中測驗列表 <span class="en-inline">Dec 19 - Midterm Presentation List</span></div>
+            </summary>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>狀態 / Status</th>
+                            <th>序號 / ID</th>
+                            <th>姓名 (可修改) / Name</th>
+                            <th>族語分組 / Group</th>
+                            <th>級別 / Level</th>
+                            <th>測驗與學習 / Exam & Study</th>
+                            <th>時間 / Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="midterm-tbody"></tbody>
+                </table>
+            </div>
+        </details>
+    </div>
+
+    <!-- 設定彈窗 -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>設定測驗教材 / Exam Materials Settings</h3>
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="modal-student-info" style="font-weight:bold; margin-bottom:15px; border-left: 5px solid var(--accent-color); padding-left: 10px;"></div>
+                <div class="edit-area">
+                    <div class="input-group"><label>朗讀標題</label><input type="text" id="edit-reading-desc"></div>
+                    <div class="input-group"><label>學習連結 URL</label><input type="text" id="edit-url"></div>
+                    <div class="input-group full-width"><label>朗讀文字內容</label><textarea id="edit-text"></textarea></div>
+                    <div class="input-group"><label>朗讀圖片 URL</label><input type="text" id="edit-reading-img-url"></div>
+                    <div class="input-group"><label>看圖說故事 URL</label><input type="text" id="edit-story-img-url"></div>
+                    <button class="save-btn" onclick="saveCurrentSettings()">💾 儲存並同步</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'indigenous-schedule-v1';
+        const initialToken = typeof __initial_auth_token !== 'undefined' && __initial_auth_token ? __initial_auth_token : null;
+
+        const DEFAULT_STUDENTS = [
+            { id: 1, name: "林芳宇", group: "南勢阿美", langCode: "Nanshi", time: "14:10 - 14:21", level: "High-Intermediate" },
+            { id: 2, name: "廖于寰", group: "海岸阿美", langCode: "Coastal", time: "14:21 - 14:32", level: "High-Intermediate" },
+            { id: 3, name: "董韋誠", group: "海岸阿美", langCode: "Coastal", time: "14:32 - 14:43", level: "High-Intermediate" },
+            { id: 4, name: "林子嫣", group: "海岸阿美", langCode: "Coastal", time: "14:43 - 14:54", level: "Intermediate" },
+            { id: 5, name: "Malinda", group: "海岸阿美", langCode: "Coastal", time: "14:54 - 15:05", level: "High-Intermediate" },
+            { id: 6, name: "魏翔慧", group: "南勢阿美", langCode: "Nanshi", time: "15:05 - 15:16", level: "High-Intermediate" },
+            { id: 7, name: "黃湘茹", group: "太魯閣", langCode: "Truku", time: "15:16 - 15:27", level: "High-Intermediate" },
+            { id: 8, name: "林子嫈", group: "撒奇萊雅", langCode: "Sakizaya", time: "15:27 - 15:38", level: "High-Intermediate" },
+            { id: 9, name: "林詩晨", group: "南勢阿美", langCode: "Nanshi", time: "15:40 - 15:51", level: "High-Intermediate" },
+            { id: 10, name: "王妤君", group: "秀姑巒阿美", langCode: "Siwkolang", time: "15:51 - 16:02", level: "High-Intermediate" },
+            { id: 11, name: "余晨儀", group: "南勢阿美", langCode: "Nanshi", time: "16:02 - 16:13", level: "High-Intermediate" },
+            { id: 12, name: "呂頌恩", group: "北排灣", langCode: "Paiwan", time: "16:13 - 16:24", level: "High-Intermediate" },
+            { id: 13, name: "楊舒閑", group: "中排灣語", langCode: "Paiwan", time: "16:24 - 16:35", level: "High-Intermediate" },
+            { id: 14, name: "蘇邱立宏", group: "郡群布農語", langCode: "Bunun", time: "16:35 - 16:46", level: "Intermediate" },
+            { id: 15, name: "胡弘易", group: "郡群布農語", langCode: "Bunun", time: "16:46 - 16:57", level: "High-Intermediate" }
+        ];
+
+        let state = {
+            students: DEFAULT_STUDENTS,
+            content: {},
+            user: null,
+            db: null,
+            auth: null
+        };
+
+        const statusEl = document.getElementById('sync-status');
+        const loadingOverlay = document.getElementById('loading');
+
+        // 更新狀態 UI
+        const setStatus = (text, type) => {
+            statusEl.innerText = text;
+            statusEl.className = `status-bar status-${type}`;
+        };
+
+        // 渲染表格
+        window.renderTable = () => {
+            const tbody = document.getElementById('midterm-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = state.students.map((s, idx) => {
+                const key = `${s.id}_${s.level}`;
+                const hasUrl = state.content[key] && state.content[key].url;
+                const goBtn = hasUrl ? `<a href="${state.content[key].url}" target="_blank" class="btn-go">🌐 學習 Go</a>` : '';
+                
+                let breakRow = (idx === 8) ? `<tr class="special-row"><td colspan="7">☕ 休息 (15:38 - 15:40)</td></tr>` : '';
+                return breakRow + `
+                    <tr>
+                        <td><span class="badge mid">期中+口說</span></td>
+                        <td>${s.id}</td>
+                        <td class="editable-cell" contenteditable="true" onblur="updateStudent(${s.id}, 'name', this.innerText)">${s.name}</td>
+                        <td class="editable-cell" contenteditable="true" onblur="updateStudent(${s.id}, 'group', this.innerText)">${s.group}</td>
+                        <td>
+                             <select onchange="updateStudent(${s.id}, 'level', this.value)">
+                                <option value="Intermediate" ${s.level === 'Intermediate' ? 'selected' : ''}>中級</option>
+                                <option value="High-Intermediate" ${s.level === 'High-Intermediate' ? 'selected' : ''}>中高級</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn-view" onclick="openEditModal(${s.id})">⚙️ 設定</button>
+                            ${goBtn}
+                        </td>
+                        <td class="time-col">${s.time}</td>
+                    </tr>`;
+            }).join('');
+        };
+
+        // 核心：獲取正確的偶數段路徑
+        const getDocRef = () => {
+            // Path: artifacts -> appId -> public -> data -> schedule -> main_doc (6 segments)
+            return doc(state.db, 'artifacts', appId, 'public', 'data', 'schedule', 'main_doc');
+        };
+
+        // 儲存到雲端
+        const saveToCloud = async () => {
+            if (!state.user) return;
+            setStatus("⏳ 同步中...", "syncing");
+            try {
+                await setDoc(getDocRef(), {
+                    students: state.students,
+                    content: state.content,
+                    ts: Date.now()
+                });
+                setStatus("✅ 雲端已同步", "online");
+            } catch (e) {
+                console.error(e);
+                setStatus("❌ 同步失敗", "error");
+            }
+        };
+
+        // 初始化
+        const init = async () => {
+            try {
+                const app = initializeApp(firebaseConfig);
+                state.auth = getAuth(app);
+                state.db = getFirestore(app);
+
+                // Rule 3: 必須先 Auth
+                if (initialToken) {
+                    await signInWithCustomToken(state.auth, initialToken);
+                } else {
+                    await signInAnonymously(state.auth);
+                }
+
+                onAuthStateChanged(state.auth, (user) => {
+                    if (user) {
+                        state.user = user;
+                        setStatus("✅ 已連線", "online");
+                        
+                        // 監聽即時更新
+                        onSnapshot(getDocRef(), (snap) => {
+                            if (snap.exists()) {
+                                const data = snap.data();
+                                state.students = data.students || DEFAULT_STUDENTS;
+                                state.content = data.content || {};
+                                renderTable();
+                            } else {
+                                saveToCloud(); // 第一次初始化
+                            }
+                        }, (err) => {
+                            console.error(err);
+                            setStatus("❌ 連線被拒絕", "error");
+                        });
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+                setStatus("❌ 初始化失敗: " + err.message, "error");
+            }
+        };
+
+        window.updateStudent = (id, field, value) => {
+            const s = state.students.find(x => x.id === id);
+            if (s && s[field] !== value) {
+                s[field] = value;
+                saveToCloud();
+            }
+        };
+
+        window.openEditModal = (id) => {
+            window.currId = id;
+            const s = state.students.find(x => x.id === id);
+            const data = state.content[`${s.id}_${s.level}`] || {};
+            document.getElementById('modal-student-info').innerText = `設定：${s.name}`;
+            document.getElementById('edit-reading-desc').value = data.desc || "";
+            document.getElementById('edit-url').value = data.url || "";
+            document.getElementById('edit-text').value = data.text || "";
+            document.getElementById('edit-reading-img-url').value = data.readingImg || "";
+            document.getElementById('edit-story-img-url').value = data.storyImg || "";
+            document.getElementById('edit-modal').style.display = 'block';
+        };
+
+        window.saveCurrentSettings = async () => {
+            const s = state.students.find(x => x.id === window.currId);
+            state.content[`${s.id}_${s.level}`] = {
+                desc: document.getElementById('edit-reading-desc').value,
+                url: document.getElementById('edit-url').value,
+                text: document.getElementById('edit-text').value,
+                readingImg: document.getElementById('edit-reading-img-url').value,
+                storyImg: document.getElementById('edit-story-img-url').value
+            };
+            loadingOverlay.style.display = 'flex';
+            await saveToCloud();
+            loadingOverlay.style.display = 'none';
+            closeModal();
+            renderTable();
+        };
+
+        window.closeModal = () => document.getElementById('edit-modal').style.display = 'none';
+
+        renderTable();
+        init();
+    </script>
+</body>
+</html>
