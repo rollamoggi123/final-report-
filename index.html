@@ -71,8 +71,8 @@
                 </div>
             </h1>
             <div id="connection-indicator" class="text-xs bg-slate-800 px-3 py-1 rounded-full border border-slate-700 text-emerald-400">
-                <i class="fas fa-check-circle text-emerald-400 mr-1"></i> 
-                雲端連動中 <span class="ml-1 opacity-60">Cloud Syncing</span>
+                <i class="fas fa-circle-notch fa-spin mr-1"></i> 
+                雲端連動中 <span class="ml-1 opacity-60">Cloud Sync Success</span>
             </div>
         </div>
     </nav>
@@ -127,34 +127,31 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                        <!-- High-Int -->
                         <tr class="hover:bg-emerald-50/50 transition-colors">
                             <td class="px-6 py-4 font-mono font-bold text-emerald-600 text-lg">02</td>
                             <td class="px-6 py-4 font-bold text-slate-800 editable-name" contenteditable="true">廖于寰</td>
-                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter">Coastal Amis</span></td>
+                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter italic text-emerald-600">Coastal Amis</span></td>
                             <td class="px-6 py-4"><span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold ring-1 ring-amber-200 uppercase">中高級 / High-Int.</span></td>
                             <td class="px-6 py-4 text-sm font-medium text-slate-500">14:21 - 14:32</td>
                         </tr>
                         <tr class="hover:bg-emerald-50/50 transition-colors">
                             <td class="px-6 py-4 font-mono font-bold text-emerald-600 text-lg">03</td>
                             <td class="px-6 py-4 font-bold text-slate-800 editable-name" contenteditable="true">董韋誠</td>
-                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter">Coastal Amis</span></td>
+                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter italic text-emerald-600">Coastal Amis</span></td>
                             <td class="px-6 py-4"><span class="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-xs font-bold ring-1 ring-amber-200 uppercase">中高級 / High-Int.</span></td>
                             <td class="px-6 py-4 text-sm font-medium text-slate-500">14:32 - 14:43</td>
                         </tr>
-                        <!-- Intermediate -->
                         <tr class="hover:bg-blue-50/50 transition-colors bg-blue-50/20">
                             <td class="px-6 py-4 font-mono font-bold text-blue-600 text-lg">04</td>
                             <td class="px-6 py-4 font-bold text-slate-800 editable-name" contenteditable="true">林子嫣</td>
-                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter">Coastal Amis</span></td>
+                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter italic text-emerald-600">Coastal Amis</span></td>
                             <td class="px-6 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold ring-1 ring-blue-200 uppercase">中級 / Intermediate</span></td>
                             <td class="px-6 py-4 text-sm font-medium text-slate-500">14:43 - 14:54</td>
                         </tr>
-                        <!-- Elementary -->
                         <tr class="hover:bg-pink-50/50 transition-colors bg-pink-50/20">
                             <td class="px-6 py-4 font-mono font-bold text-pink-600 text-lg">05</td>
                             <td class="px-6 py-4 font-bold text-slate-800 editable-name" contenteditable="true">Malinda</td>
-                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter">Coastal Amis</span></td>
+                            <td class="px-6 py-4 text-slate-600">海岸阿美 <span class="text-[10px] text-slate-400 block tracking-tighter italic text-emerald-600">Coastal Amis</span></td>
                             <td class="px-6 py-4"><span class="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-bold ring-1 ring-pink-200 uppercase">初級 / Elementary</span></td>
                             <td class="px-6 py-4 text-sm font-medium text-slate-500">14:54 - 15:05</td>
                         </tr>
@@ -163,8 +160,8 @@
             </div>
         </div>
 
-        <!-- 考題級別切換 / Exam Level Switch -->
-        <div class="flex border-b border-slate-200 mb-8 bg-white rounded-t-xl overflow-hidden shadow-sm">
+        <!-- 考題級別切換 / Level Tabs -->
+        <div class="flex border-b border-slate-200 mb-8 bg-white rounded-t-xl overflow-hidden shadow-sm text-center">
             <button onclick="window.switchLevel('high')" id="tab-high" class="flex-1 py-4 font-bold text-lg transition-all tab-active">
                 中高級考題 <span class="text-[10px] block opacity-70 uppercase tracking-tighter">High-Intermediate</span>
                 <span class="block text-xs font-normal opacity-70">適用：廖于寰、董韋誠</span>
@@ -180,7 +177,7 @@
         </div>
 
         <div id="exam-content" class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <!-- 動態填充內容 / Dynamic Content -->
+            <!-- Dynamic Content -->
         </div>
     </main>
 
@@ -193,7 +190,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
-        // 考題資料庫 / Exam Database
         const examData = {
             high: {
                 title: "海岸阿美 / High-Intermediate 第10階第5課 第一段課文",
@@ -227,22 +223,18 @@
             const content = document.getElementById('exam-content');
             if (!content) return;
 
-            // 切換按鈕樣式
             ['high', 'int', 'elem'].forEach(l => {
                 const btn = document.getElementById(`tab-${l}`);
                 if (btn) {
-                    if (l === level) {
-                        btn.className = "flex-1 py-4 font-bold text-lg transition-all tab-active";
-                    } else {
-                        btn.className = "flex-1 py-4 font-bold text-lg transition-all text-slate-400 hover:text-slate-600 bg-slate-50";
-                    }
+                    btn.className = (l === level) 
+                        ? "flex-1 py-4 font-bold text-lg transition-all tab-active" 
+                        : "flex-1 py-4 font-bold text-lg transition-all text-slate-400 hover:text-slate-600 bg-slate-50";
                 }
             });
 
-            // 渲染內容 / Render Content
             content.innerHTML = `
                 <div class="space-y-8 animate-fadeIn">
-                    <!-- TASK 1 -->
+                    <!-- Task 1 -->
                     <div class="bg-white p-3 rounded-3xl shadow-lg overflow-hidden border border-slate-200 ring-1 ring-${data.themeColor}-100">
                         <div class="px-5 py-4 border-b flex items-center justify-between bg-${data.themeColor}-50/50">
                             <span class="flex items-center gap-2">
@@ -259,58 +251,43 @@
                         </div>
                     </div>
 
-                    <!-- TASK 2 (中英並列說明，移除朗讀考題標籤) -->
+                    <!-- Task 2 (已修正標題名稱) -->
                     <div class="bg-white p-3 rounded-3xl shadow-lg overflow-hidden border border-slate-200 ring-1 ring-${data.themeColor}-100">
                         <div class="px-5 py-4 border-b flex items-center justify-between bg-slate-50">
                             <span class="flex items-center gap-2">
                                 <i class="fas fa-comment-dots text-${data.themeColor}-600 text-xl"></i> 
                                 <div>
-                                    <h4 class="font-bold text-slate-800">看圖說話</h4>
-                                    <span class="text-[10px] font-normal text-slate-500 block uppercase tracking-tighter italic">Speaking Task</span>
+                                    <h4 class="font-bold text-slate-800">看圖說故事考題</h4>
+                                    <span class="text-[10px] font-normal text-slate-500 block uppercase tracking-tighter italic">Storytelling Task</span>
                                 </div>
                             </span>
                             <span class="text-[11px] font-bold text-${data.themeColor}-600 bg-white px-2 py-0.5 rounded border border-${data.themeColor}-200 uppercase">TASK 2</span>
                         </div>
                         <div class="p-2 bg-slate-50">
-                            <img src="${data.task2}" alt="Speaking Exam" class="w-full h-auto object-contain rounded-xl shadow-inner" onerror="this.src='https://placehold.co/600x400?text=Image+Not+Found'">
+                            <img src="${data.task2}" alt="Storytelling Exam" class="w-full h-auto object-contain rounded-xl shadow-inner" onerror="this.src='https://placehold.co/600x400?text=Image+Not+Found'">
                         </div>
                     </div>
                 </div>
 
                 <div class="space-y-8 animate-fadeIn">
-                    <!-- 播放器 / Audio Player -->
                     <div class="bg-slate-800 p-8 rounded-[2rem] shadow-2xl text-white ring-4 ring-${data.themeColor}-900/20">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-xl font-bold flex items-center gap-3">
                                 <i class="fas fa-headphones-alt text-${data.themeColor}-400"></i> 
-                                <div>
-                                    參考音訊播放 
-                                    <span class="text-[10px] font-normal text-slate-400 block uppercase tracking-widest">Reference Audio Playback</span>
-                                </div>
+                                <div>參考音訊播放 <span class="text-[10px] font-normal text-slate-400 block uppercase tracking-widest">Reference Audio Playback</span></div>
                             </h3>
                         </div>
                         ${data.audio ? `<audio controls class="w-full h-12 shadow-inner rounded-lg"><source src="${data.audio}" type="audio/mpeg"></audio>` : `<div class="p-4 bg-slate-700 rounded-xl text-slate-400 text-center italic border border-dashed border-slate-600">目前尚無音訊內容 / No Audio Available</div>`}
                     </div>
 
-                    <!-- 讀稿內容 / Reading Text Content Card -->
                     <div class="bg-white p-10 rounded-[2rem] shadow-xl border border-slate-100 relative overflow-hidden ring-1 ring-slate-200">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-${data.themeColor}-500/5 -mr-10 -mt-10 rounded-full"></div>
-                        
                         <h3 class="text-2xl font-bold text-slate-800 mb-6 border-l-4 border-${data.themeColor}-500 pl-4">
                             朗讀內容文字 
                             <span class="text-xs font-normal text-slate-500 block uppercase tracking-wider italic">Reading Text Content</span>
                         </h3>
-                        
-                        <div class="mb-4 text-${data.themeColor}-700 font-bold bg-${data.themeColor}-50 px-4 py-2 rounded-lg inline-block text-sm border border-${data.themeColor}-100">
-                            ${data.title}
-                        </div>
-
-                        ${data.storyTheme ? `
-                        <div class="mb-4 text-pink-700 font-bold bg-pink-50 px-4 py-2 rounded-lg block text-sm border border-pink-100 italic">
-                            主題 / Theme: ${data.storyTheme}
-                        </div>
-                        ` : ''}
-
+                        <div class="mb-4 text-${data.themeColor}-700 font-bold bg-${data.themeColor}-50 px-4 py-2 rounded-lg inline-block text-sm border border-${data.themeColor}-100">${data.title}</div>
+                        ${data.storyTheme ? `<div class="mb-4 text-pink-700 font-bold bg-pink-50 px-4 py-2 rounded-lg block text-sm border border-pink-100 italic">主題 / Theme: ${data.storyTheme}</div>` : ''}
                         <div class="amis-text text-2xl md:text-3xl text-slate-700 italic font-medium leading-relaxed bg-slate-50/80 p-8 rounded-2xl border border-dashed border-slate-300 shadow-inner">
                             "${data.text.replace(/\n/g, '<br>')}"
                         </div>
@@ -323,27 +300,16 @@
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
                 if (!configStr) return;
-                
                 const firebaseConfig = JSON.parse(configStr);
                 const app = initializeApp(firebaseConfig);
                 const auth = getAuth(app);
-                
                 const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-                if (token) {
-                    await signInWithCustomToken(auth, token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-
+                if (token) await signInWithCustomToken(auth, token); else await signInAnonymously(auth);
                 onAuthStateChanged(auth, (user) => {
                     const ind = document.getElementById('connection-indicator');
-                    if (user && ind) {
-                        ind.innerHTML = `<i class="fas fa-check-circle text-emerald-400 mr-1"></i> 雲端連動成功 <span class="ml-1 opacity-60">Cloud Sync Success</span>`;
-                    }
+                    if (user && ind) ind.innerHTML = `<i class="fas fa-check-circle text-emerald-400 mr-1"></i> 雲端連動成功 <span class="ml-1 opacity-60">Cloud Sync Success</span>`;
                 });
-            } catch (err) {
-                console.error("Firebase Auth Error:", err);
-            }
+            } catch (err) { console.error("Firebase Auth Error:", err); }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
